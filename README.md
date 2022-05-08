@@ -86,16 +86,15 @@
 
 This repo was created to organise and deploy several tools and utilities for the analysis of the Argentinian capital markets. 
 
-The turbulent financial markets in Argentina require a set of utensils that can ensure greater deep of analysis than the one than a spreadsheet could provide.
+The turbulent financial markets in Argentina require a set of utensils that can ensure greater deep of analysis than the one than a simple spreadsheet could provide.
 
 In this repo you would find:
 * Screeners and monitors, using different assets, connections or metrics.
 * Functions that will allow you to analyse a diverse set of asset classes.
 * Utilities and scripts for creating your own monitors, screeners and asset related tools!
 
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
+I'll adding more content in the future, including more screeners, asset classes modules, back office utilities, educational content, and more! Feel free to contribute, open an issue or contacting me for new ideas. **WAGMI** guys!
 
-Use the `BLANK_README.md` to get started.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -105,14 +104,9 @@ Use the `BLANK_README.md` to get started.
 
 This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
-* [Next.js](https://nextjs.org/)
-* [React.js](https://reactjs.org/)
-* [Vue.js](https://vuejs.org/)
-* [Angular](https://angular.io/)
-* [Svelte](https://svelte.dev/)
-* [Laravel](https://laravel.com)
-* [Bootstrap](https://getbootstrap.com)
-* [JQuery](https://jquery.com)
+* [Python](https://www.python.org/)
+* [R](https://www.r-project.org/)
+* [Microsoft Excel](https://www.microsoft.com/es-ar/microsoft-365/excel)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -133,6 +127,8 @@ This is an example of how to list things you need to use the software and how to
   ```
 
 ### Installation
+
+This part is tricky, as we have a series of screeners and scripts using various sources.
 
 _Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 
@@ -168,15 +164,13 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-- [x] Add Changelog
-- [x] Add back to top links
-- [ ] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] Multi-language Support
-    - [ ] Chinese
-    - [ ] Spanish
 
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
+- [ ] Add Additional Templates w/ Examples
+- [ ] Add Changelog
+- [ ] Multi-language Support: Spanish
+
+
+See the [open issues](https://github.com/pjr95/argy-markets/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -185,10 +179,10 @@ See the [open issues](https://github.com/othneildrew/Best-README-Template/issues
 <!-- CONTRIBUTING -->
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+Contributions not only are greatly appreciated but highly necessary. As an open source project, the intent of this is to serve as a repository (no pun intended) to diverse utilities and tools relevant for traders, quant researchers, scholars, and anyone who might find it useful.
 
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
+If you have a suggestion that would improve this repo, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+Don't forget to give the project a star and thanks again!
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
