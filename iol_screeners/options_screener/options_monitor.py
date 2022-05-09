@@ -3,9 +3,14 @@ import pandas as pd
 import json
 import time
 import os
-import Options_screener.options as opt
+import sys
+sys.path.insert(0, '../asset_classes/')
+print(sys.path)
+import options as opt
 from pprint import pprint
 from datetime import datetime, date, timedelta
+
+
 
 start = time.time()
 
@@ -96,8 +101,6 @@ if __name__ == '__main__':
             os.system('cls')
 
             pprint(monitor)
-            
-            #monitor.to_csv('Monitor-prueba.csv')
 
             middle = time.time()
 
@@ -110,11 +113,3 @@ if __name__ == '__main__':
 
 end = time.time()
 print(end - start)
-#    with open('info.json', 'w') as f:
-#        json.dump(opt_data, f)
-#    with open('info2.json', 'w') as f:
-#        json.dump(opt_names, f)
-#    info3 = user_pablo.get_data(i, 't1')
-#    with open('info3.json', 'w') as f:
-#        json.dump(info3, f)
-    #print(strikes)
