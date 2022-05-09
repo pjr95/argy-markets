@@ -254,25 +254,4 @@ def atm_opt(data,S0):
         
         atm_strike = max_lower
     
-    return(atm_strike)
-
-#Para mi no es necesario ponerle a los vencimientos los nombres largos pero bueno, se hace
-
-def vencimientos(colm,venc= ["EN","FE","AB","JU","AG","OC","DI"],meses= ["Enero","Febrero","Abril","Junio","Agosto","Octubre","Diciembre"]):
-    k = 0
-    for i in venc:
-        colm = [meses[k] if x==i else x for x in colm]
-        k += 1
-    return(colm)
-
-def exp_dates(colm,dates, meses= ["Enero","Febrero","Abril","Junio","Agosto","Octubre","Diciembre"]):
-    for i in meses:
-        date = dates.get(i)
-        colm = [date if x==i else x for x in colm]
-    return(colm)
-        
-        
-    
-    
-    
-    
+    return(atm_strike)    
