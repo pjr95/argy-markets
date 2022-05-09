@@ -67,6 +67,7 @@
       <a href="#getting-started">Getting Started</a>
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
+        <li><a href="#technical-prerequisites">Technical Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
       </ul>
     </li>
@@ -120,15 +121,59 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
+This part is tricky, as we have a series of screeners and scripts using various sources. Hence, we will cover first the technical prerequisites, and then the necessaries to get a market connection.
+
+### Technical prerequisites
+
+First of all you need to have installed [Python](https://www.python.org/downloads/) version for most of the scripts and [R](https://cran.r-project.org/mirrors.html) for some others. The instructions for the installation of either are contained on the websites.
+
+To check if you have Python installed you could run the command (on both Unix and Windows systems) on the terminal/command line:
+
+```
+python --version
+```
+
+alternatively:
+
+```
+python3 --version
+```
+
+Though you should use an updated python version, 3.10.X will suffice.
+
+Once you have checked your version, and updated/install it if necessary, you will need to use a package manager, such as [conda](https://anaconda.org/anaconda/conda#:~:text=Description%20Conda%20is%20an%20open%20source%20package%20management,programs%20but%20can%20package%20and%20distribute%20any%20software.?msclkid=13839272cf2511ec84ed0b86325382cf) or [pip](https://pypi.org/project/pip/?msclkid=a92d23d8cf2611ecb37b18975da6abee) to manage the libraries and environments that you will be using.
+
+Pipenv was used to create this repo and the Pipfile.lock and Pipfile are available in the repo.
+
+If you wish to use pipenv, you need to install it first throughout pip or conda. The pip way will be used to illustrate the whole process:
+
+```
+pip install pipenv
+```
+
+alternatively:
+
+```
+pip3 install pipenv
+```
+After successful installation, you should run the following command in the repo directory:
+
+```
+pipenv shell
+```
+
+This will create a virtual environment, where the dependencies are going to be installed. 
+
+As you have the Pipfile.lock, you should run the following command to install all the necessary dependencies:
+
+```
+pipenv install --ignore-pipfile
+```
+And with this, you are ready to go!
 
 ### Installation
 
-This part is tricky, as we have a series of screeners and scripts using various sources.
+
 
 _Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
 
@@ -197,7 +242,7 @@ Don't forget to give the project a star and thanks again!
 <!-- LICENSE -->
 ## License
 
-Distributed under the MIT License. See `LICENSE.txt` for more information.
+Distributed under the GNU General Public License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
