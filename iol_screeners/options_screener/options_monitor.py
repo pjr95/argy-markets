@@ -1,12 +1,13 @@
-import client_iol as iol
 import pandas as pd
 import json
 import time
 import os
 import sys
-sys.path.insert(0, '../asset_classes/')
-print(sys.path)
-import options as opt
+sys.path.append('../../asset_classes/')
+sys.path.append('..')
+import client_iol as iol
+import options.opt_classes as opt
+from options.opt_functions import atm_opt
 from pprint import pprint
 from datetime import datetime, date, timedelta
 
@@ -48,7 +49,7 @@ if __name__ == '__main__':
             
             strikes.sort()   
 
-            atm_opt = opt.atm_opt(strikes,ggal_price)
+            atm_opt = atm_opt(strikes,ggal_price)
 
             index_atm = strikes.index(atm_opt)
 
