@@ -1,10 +1,11 @@
 import json
 import os
+import pandas as pd
+import requests
 from getpass import getpass
 from pprint import pprint
 
-import pandas as pd
-import requests
+
 
 
 class UserProfile:
