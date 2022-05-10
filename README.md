@@ -227,7 +227,7 @@ Distributed under the GNU General Public License. See `LICENSE.txt` for more inf
 <!-- CONTACT -->
 ## Contact
 
-Pablo José Romero - [@your_twitter](https://twitter.com/your_username) - email@example.com
+Pablo José Romero - [@polromero](https://twitter.com/PolRomero) - pablo.romero@mi.unc.edu.ar - pablojose.romero@alumnos.uc3m.es
 
 Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
 
@@ -238,6 +238,7 @@ Project Link: [https://github.com/your_username/repo_name](https://github.com/yo
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
+I would like to express my sincere gratitude to Federico Brun ([Fedeturi](https://github.com/fedeturi)), the co-worker, partner and personal friend that kindly had re-introduce me to Python programming in 2021.
 Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favourites to kick things off!
 
 * [Choose an Open Source License](https://choosealicense.com)
@@ -247,7 +248,7 @@ Use this space to list resources you find helpful and would like to give credit 
 * [Img Shields](https://shields.io)
 * [GitHub Pages](https://pages.github.com)
 * [Font Awesome](https://fontawesome.com)
-* [React Icons](https://react-icons.github.io/react-icons/search)
+* [README.md Template from Othneil Drew](https://github.com/othneildrew/Best-README-Template)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
