@@ -186,7 +186,9 @@ Each kind of monitor is has its own readme.md (to date iol and multi screeners),
 ## Roadmap
 
 
-- [ ] Add Additional Templates w/ Examples
+- [ ] Add more instruments to `asset_classes/`
+- [ ] Add an argy-bonds monitor
+- [ ] Add `pyhomebroker` to the reportory of screeners  
 - [ ] Add Changelog
 - [ ] Multi-language Support: Spanish
 
@@ -240,7 +242,9 @@ Project Link: [https://github.com/pjr95/argy-markets](https://github.com/pjr95/a
 
 I would like to express my sincere gratitude to Federico Brun ([@fedeturi](https://twitter.com/fedeturi) in twitter), the co-worker, partner and personal friend that kindly re-introduced me to Python programming.
 
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favourites to kick things off!
+<!-- I will also like to give my thanks to Jonatán Saúl, PhD [@jonatansaul](https://twitter.com/jonatansaul). He is one of the most brillant traders that I know of, and has helped me to jumpstart my career in the financial markets. -->
+
+Some of the open source content that is used in this repo:
 
 * [Choose an Open Source License](https://choosealicense.com)
 * [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
