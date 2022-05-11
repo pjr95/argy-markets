@@ -127,3 +127,6 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Practice .py
+asset_classes/bonds/argy_bond2.py
