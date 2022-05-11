@@ -244,7 +244,7 @@ I would like to express my sincere gratitude to Federico Brun ([@fedeturi](https
 
 <!-- I will also like to give my thanks to Jonatán Saúl, PhD [@jonatansaul](https://twitter.com/jonatansaul). He is one of the most brillant traders that I know of, and has helped me to jumpstart my career in the financial markets. -->
 
-Some of the open source content that is used in this repo:
+Some of the open source tools that is used in this repo:
 
 * [Choose an Open Source License](https://choosealicense.com)
 * [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
