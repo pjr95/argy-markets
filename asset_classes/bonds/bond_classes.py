@@ -2,6 +2,24 @@ from pyxirr import xirr
 from datetime import date, timedelta
 
 class BondCashFlow:
+    ''' Class for modeling cash-flows.
+    Attributes
+    ==========
+    date: list of dates
+          pricing/issue date
+    rent: list of floats
+          bond rent
+    amortisation: list of floats
+                  capital amortisation
+    netflow: list of floats
+             contains the price paid  
+             the rent, and the amortisation (element-wise sum)
+    couponrate: list of floats
+                coupon rate for each period
+    residualvalue: list of floats
+               residual value of the bond
+               after each payment date 
+    '''
     def __init__(self,date, rent, amortisation,netflow, couponrate, residualvalue):
         self.date = date
         self.rent = rent
@@ -56,7 +74,8 @@ class SovereignBond:
             return round(price,2)
         else:
             return(price)
-    def durations(self,price,settlementDate,changeytm = 0.01):
+
+    def durations(self,price,settlementDate = date.today (),changeytm = 0.01):
         today = date.today()
         if settlementDate != date.today():
             settle_date = date.fromisoformat(settlementDate)
@@ -66,10 +85,7 @@ class SovereignBond:
         dates_bond = list(self.cashflow.date)
         while  dates_bond[0] < today:
             del dates_bond[0]
-            del cf[0]
-        price = 0
         dates_bond.insert(0, settle_date)
-        cf.insert(0, price)
         ytm = self.ytm(price,settlementDate = settle_date)
         wxt= [None] * (len(dates_bond) - 1)
         for i in range(1,len(dates_bond)):
@@ -77,11 +93,12 @@ class SovereignBond:
             time_left = time_left.days/365
             wxt[i-1] = (1/price) * (cf[i]/pow(1 + ytm, time_left)) * time_left
         durations = {}
+        durations['mac_duration'] = sum(wxt)
+        durations['mod_duration'] = durations['mac_duration'] / (1 + ytm/2)
+        durations['dollar_duration'] = durations['mod_duration'] * price
+        durations['dv01'] = durations['dollar_duration'] / 10000
 
-
-
-
-
+        return durations
 
 
 
