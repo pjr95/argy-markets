@@ -185,7 +185,7 @@ Each kind of monitor is has its own readme.md (to date iol and multi screeners),
 <!-- ROADMAP -->
 ## Roadmap
 
-
+- [ ] Add README.md for each monitor 
 - [ ] Add more instruments to `asset_classes/`
 - [ ] Add an argy-bonds monitor
 - [ ] Add `pyhomebroker` to the reportory of screeners  
@@ -244,15 +244,10 @@ I would like to express my sincere gratitude to Federico Brun ([@fedeturi](https
 
 <!-- I will also like to give my thanks to Jonatán Saúl, PhD [@jonatansaul](https://twitter.com/jonatansaul). He is one of the most brillant traders that I know of, and has helped me to jumpstart my career in the financial markets. -->
 
-Some of the open source tools that is used in this repo:
+Some of the tools that are used in this repo:
 
-* [Choose an Open Source License](https://choosealicense.com)
-* [GitHub Emoji Cheat Sheet](https://www.webpagefx.com/tools/emoji-cheat-sheet)
-* [Malven's Flexbox Cheatsheet](https://flexbox.malven.co/)
-* [Malven's Grid Cheatsheet](https://grid.malven.co/)
-* [Img Shields](https://shields.io)
-* [GitHub Pages](https://pages.github.com)
-* [Font Awesome](https://fontawesome.com)
+* [API de Invertir Online](https://api.invertironline.com/)
+* Python tutorials in [Real Python](https://realpython.com/?)
 * README.md Template from [Othneil Drew](https://github.com/othneildrew/Best-README-Template)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
