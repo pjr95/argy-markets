@@ -75,30 +75,57 @@ class SovereignBond:
         else:
             return(price)
 
-    def durations(self,price,settlementDate = date.today (),changeytm = 0.01):
-        today = date.today()
+    def durations(self,price, settlementDate = date.today ()):
         if settlementDate != date.today():
             settle_date = date.fromisoformat(settlementDate)
         else:
             settle_date = settlementDate
+        ytm = self.ytm(price,settlementDate = settle_date)
         cf = list(self.cashflow.netflow)
         dates_bond = list(self.cashflow.date)
-        while  dates_bond[0] < today:
+        while  dates_bond[0] < settle_date:
             del dates_bond[0]
+            del cf[0]
+        cf.insert(0, price)   
         dates_bond.insert(0, settle_date)
-        ytm = self.ytm(price,settlementDate = settle_date)
         wxt= [None] * (len(dates_bond) - 1)
         for i in range(1,len(dates_bond)):
             time_left = dates_bond[i] - dates_bond[0]
             time_left = time_left.days/365
             wxt[i-1] = (1/price) * (cf[i]/pow(1 + ytm, time_left)) * time_left
         durations = {}
-        durations['mac_duration'] = sum(wxt)
-        durations['mod_duration'] = durations['mac_duration'] / (1 + ytm/2)
-        durations['dollar_duration'] = durations['mod_duration'] * price
-        durations['dv01'] = durations['dollar_duration'] / 10000
+        durations['Macaulay Duration'] = sum(wxt)
+        durations['Modified Duration'] = durations['Macaulay Duration'] / (1 + ytm/2)
+        durations['$Duration'] = durations['Modified Duration'] * price
+        durations['DV01'] = durations['$Duration'] / 10000
 
         return durations
+    
+    def convexity(self, price, settlementDate = date.today ()):
+        if settlementDate != date.today():
+            settle_date = date.fromisoformat(settlementDate)
+        else:
+            settle_date = settlementDate
+        ytm = self.ytm(price,settlementDate = settle_date)
+        cf = list(self.cashflow.netflow)
+        dates_bond = list(self.cashflow.date)
+        while  dates_bond[0] < settle_date:
+            del dates_bond[0]
+            del cf[0]
+        cf.insert(0, price)   
+        dates_bond.insert(0, settle_date)
+        wxt= [None] * (len(dates_bond) - 1)
+        for i in range(1,len(dates_bond)):
+            time_left = dates_bond[i] - dates_bond[0]
+            time_left = time_left.days/365
+            wxt[i-1] = ((time_left * (time_left + 1) * cf[i]) / \
+                         pow(1 + ytm,time_left)) * pow(pow(1 + ytm, 2), -1)
+        convexity = {}
+        convexity['$Convexity'] = sum(wxt)
+        convexity['Convexity'] = convexity['$Convexity'] * \
+                                   pow(price, -1) * pow(2,-1)
+
+        return convexity
 
 
 
