@@ -17,18 +17,38 @@ class BondCashFlow:
     couponrate: list of floats
                 coupon rate for each period
     residualvalue: list of floats
-               residual value of the bond
-               after each payment date 
+                    residual value of the bond
+                    after each payment date 
+    currency: str
+              currency of the cash flow
     '''
-    def __init__(self,date, rent, amortisation,netflow, couponrate, residualvalue):
+    def __init__(self,date, rent, amortisation,netflow, couponrate, residualvalue, currency = 'USD'):
         self.date = date
         self.rent = rent
         self.amortisation = amortisation
         self.netflow = netflow
         self.couponrate = couponrate
         self.residualvalue = residualvalue
+        self.currency = currency
 
 class SovereignBond:
+    ''' Class for modeling soverign bonds
+    Attributes
+    ==========
+    maturity: date
+              maturity date
+    country: str
+             contry that issued the bond
+    currency: str
+              currency of the bond
+    series: str
+            series of the bond
+    cashflow: class BondCashFlow
+             contains the cash flow of  
+             the bond
+    periodicity: str
+                 periodicity of the payments
+    '''
     def __init__(self,maturity,country,currency,series,cashflow,periodicity):
         self.maturity = maturity
         self.country = country
@@ -36,12 +56,12 @@ class SovereignBond:
         self.series = series
         self.cashflow = cashflow
         self.periodicity = periodicity
-    def ytm(self,price,settlementDate = date.today()):
+    def ytm(self,price,pricing_date = date.today()):
         today = date.today()
-        if settlementDate != date.today():
-            settle_date = date.fromisoformat(settlementDate)
+        if pricing_date != date.today():
+            settle_date = date.fromisoformat(pricing_date)
         else:
-            settle_date = settlementDate
+            settle_date = pricing_date
         cf = list(self.cashflow.netflow)
         dates_bond = list(self.cashflow.date)
         while  dates_bond[0] < today:
@@ -51,12 +71,12 @@ class SovereignBond:
         cf.insert(0, -price)
         ytm = xirr(dates_bond,cf)
         return ytm
-    def price(self,ytm,settlementDate = date.today(), rnd = True):
+    def price(self,ytm,pricing_date = date.today(), rnd = True):
         today = date.today()
-        if settlementDate != date.today():
-            settle_date = date.fromisoformat(settlementDate)
+        if pricing_date != date.today():
+            settle_date = date.fromisoformat(pricing_date)
         else:
-            settle_date = settlementDate
+            settle_date = pricing_date
         cf = list(self.cashflow.netflow)
         dates_bond = list(self.cashflow.date)
         while  dates_bond[0] < today:
@@ -75,12 +95,12 @@ class SovereignBond:
         else:
             return(price)
 
-    def durations(self,price, settlementDate = date.today ()):
-        if settlementDate != date.today():
-            settle_date = date.fromisoformat(settlementDate)
+    def durations(self,price, pricing_date = date.today ()):
+        if pricing_date != date.today():
+            settle_date = date.fromisoformat(pricing_date)
         else:
-            settle_date = settlementDate
-        ytm = self.ytm(price,settlementDate = settle_date)
+            settle_date = pricing_date
+        ytm = self.ytm(price,pricing_date = settle_date)
         cf = list(self.cashflow.netflow)
         dates_bond = list(self.cashflow.date)
         while  dates_bond[0] < settle_date:
@@ -101,12 +121,12 @@ class SovereignBond:
 
         return durations
     
-    def convexity(self, price, settlementDate = date.today ()):
-        if settlementDate != date.today():
-            settle_date = date.fromisoformat(settlementDate)
+    def convexity(self, price, pricing_date = date.today ()):
+        if pricing_date != date.today():
+            settle_date = date.fromisoformat(pricing_date)
         else:
-            settle_date = settlementDate
-        ytm = self.ytm(price,settlementDate = settle_date)
+            settle_date = pricing_date
+        ytm = self.ytm(price,pricing_date = settle_date)
         cf = list(self.cashflow.netflow)
         dates_bond = list(self.cashflow.date)
         while  dates_bond[0] < settle_date:
@@ -126,29 +146,5 @@ class SovereignBond:
                                    pow(price, -1) * pow(2,-1)
 
         return convexity
-
-
-
-
-
-
-
-
-
-
-'''
-class CashFlow:
-    def __init__(self,inflows,outflows,rates,period):
-        self.inflows = inflows
-        self.outflows = outflows
-        self.rates = rates
-        self.period = period
-        self.net_flows = [x + y for x, y in zip(inflows, outflows)]
-
-    def pv(self):
-        rho = self.rates + 1
-        pv = [x / self.rates for x in self.net_flows]
-        return pv
-'''
 
 
