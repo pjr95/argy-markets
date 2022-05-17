@@ -3,10 +3,9 @@ import json
 import time
 import os
 import sys
-sys.path.append('../../argy_assets/')
-sys.path.append('..')
-import client_iol as iol
-import options as opt
+sys.path.append('../..')
+import iol_screeners.client_iol as iol
+import argy_assets.options as opt
 from pprint import pprint
 from datetime import datetime, date, timedelta
 
