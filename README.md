@@ -116,9 +116,6 @@ This section should list any major frameworks/libraries used to bootstrap your p
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
 ### Prerequisites
 
 This part is tricky, as we have a series of screeners and scripts using various sources. Hence, we will cover only the technical prerequisites here.
@@ -180,7 +177,14 @@ Each kind of monitor is has its own readme.md (to date iol and multi screeners),
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
+### Cloning the repo
 
+You can clone the repo using the `git clone` command. First you should have git installed in your computer. To achieve this follow these [instructions](https://github.com/git-guides/install-git).
+
+After installing git, running the following command will create a "copy" of the repo in your local machine
+```
+git clone https://github.com/pjr95/argy-markets.git
+```
 
 <!-- ROADMAP -->
 ## Roadmap
@@ -242,11 +246,11 @@ Project Link: [https://github.com/pjr95/argy-markets](https://github.com/pjr95/a
 
 I would like to express my sincere gratitude to Federico Brun ([@fedeturi](https://twitter.com/fedeturi) in twitter), the co-worker, partner and personal friend that kindly re-introduced me to Python programming.
 
-<!-- I will also like to give my thanks to Jonatán Saúl, PhD [@jonatansaul](https://twitter.com/jonatansaul). He is one of the most brillant traders that I know of, and has helped me to jumpstart my career in the financial markets. -->
+I will also like to give my thanks to Jonatán Saúl, PhD ([@jonatansaul](https://twitter.com/jonatansaul) in twitter). He is one of the most brillant traders that I know of, and has helped me to jumpstart my career in the financial sector.
 
 Some of the tools that are used in this repo:
 
-* [API de Invertir Online](https://api.invertironline.com/)
+* [API - Invertir Online](https://api.invertironline.com/)
 * Python tutorials in [Real Python](https://realpython.com/?)
 * README.md Template from [Othneil Drew](https://github.com/othneildrew/Best-README-Template)
 
