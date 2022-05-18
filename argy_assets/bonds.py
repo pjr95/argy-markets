@@ -48,14 +48,47 @@ class SovereignBond:
              the bond
     periodicity: str
                  periodicity of the payments
+    position: int
+              position size and direction 
+              (negative for short, positive for long,
+              zero if you do not have the bond in your
+              portfolio) 
     '''
-    def __init__(self,maturity,country,currency,series,cashflow,periodicity):
+    def __init__(self, ticker, cashflow, maturity, series, country = 'Argentina',
+                 currency = 'USD', periodicity = 'semestral', position = 0):
+        self.ticker = ticker
+        self.cashflow = cashflow
         self.maturity = maturity
+        self.series = series
         self.country = country
         self.currency = currency
-        self.series = series
-        self.cashflow = cashflow
         self.periodicity = periodicity
+        self.position = position
+
+    def buy(self, qty = 1, buying_price = 100):
+        if qty < 0: return print('Negative quantities are sells!')
+        self.position = self.position + qty 
+        self.last_buying_price = buying_price 
+        try:
+            eval('self.wap')
+            self.wap += [(buying_price, qty)]
+        except AttributeError:
+            self.wap  = [(buying_price, qty)]
+
+        return print(f'Bought {self.ticker} {qty}@{buying_price} {self.currency}' )
+    
+    def sell(self, qty = -1, selling_price = 100):
+        if qty < 0: return print('Positive quantities are buys!')
+        self.position = self.position + qty 
+        self.last_selling_price = selling_price 
+        try:
+            eval('self.wap')
+            self.wap += [(selling_price, qty)]
+        except AttributeError:
+            self.wap  = [(selling_price, qty)]
+        
+        return print(f'Sold {self.ticker} {qty}@{selling_price} {self.currency}' )
+
     def ytm(self,price,pricing_date = date.today()):
         today = date.today()
         if pricing_date != date.today():
@@ -70,7 +103,9 @@ class SovereignBond:
         dates_bond.insert(0, settle_date)
         cf.insert(0, -price)
         ytm = xirr(dates_bond,cf)
+
         return ytm
+
     def price(self,ytm,pricing_date = date.today(), rnd = True):
         today = date.today()
         if pricing_date != date.today():
@@ -91,8 +126,10 @@ class SovereignBond:
             nflow = cf[i]/pow(1 + ytm, time_left)
             price = price + nflow
         if rnd == True:
+
             return round(price,2)
         else:
+
             return(price)
 
     def durations(self,price, pricing_date = date.today ()):
