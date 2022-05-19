@@ -1,5 +1,6 @@
+import numpy as np
 from pyxirr import xirr
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 
 class BondCashFlow:
     ''' Class for modeling cash-flows.
@@ -35,17 +36,19 @@ class SovereignBond:
     ''' Class for modeling soverign bonds
     Attributes
     ==========
-    maturity: date
-              maturity date
-    country: str
-             contry that issued the bond
-    currency: str
-              currency of the bond
-    series: str
-            series of the bond
+    ticker: str
+            bond ticker
     cashflow: class BondCashFlow
              contains the cash flow of  
              the bond
+    maturity: date
+              maturity date    
+    series: str
+            series of the bond
+    country: str
+             contry that issued the bond      
+    currency: str
+              currency of the bond
     periodicity: str
                  periodicity of the payments
     position: int
@@ -70,24 +73,50 @@ class SovereignBond:
         self.position = self.position + qty 
         self.last_buying_price = buying_price 
         try:
-            eval('self.wap')
-            self.wap += [(buying_price, qty)]
+            eval('self.fills')
+            self.fills += [(qty, buying_price, datetime.now())]
         except AttributeError:
-            self.wap  = [(buying_price, qty)]
-
+            self.fills  = [(qty, buying_price, datetime.now())]
         return print(f'Bought {self.ticker} {qty}@{buying_price} {self.currency}' )
     
     def sell(self, qty = -1, selling_price = 100):
-        if qty < 0: return print('Positive quantities are buys!')
+        if qty > 0: return print('Positive quantities are buys!')
         self.position = self.position + qty 
         self.last_selling_price = selling_price 
         try:
-            eval('self.wap')
-            self.wap += [(selling_price, qty)]
+            eval('self.fills')
+            self.fills += [(qty, selling_price, datetime.now())]
         except AttributeError:
-            self.wap  = [(selling_price, qty)]
-        
+            self.fills  = [(qty, selling_price, datetime.now())]       
         return print(f'Sold {self.ticker} {qty}@{selling_price} {self.currency}' )
+    
+    def wap(self):
+        try:
+            wap_buy = 0
+            wap_sell = 0
+            buys = [x[0] for x in self.fills if x[0] > 0]
+            sells = [x[0] for x in self.fills if x[0] < 0]
+            weight_buy = [x/sum(buys) for x in buys]
+            weight_sell = [x/sum(sells)for x in sells]
+            price_buy = [x[1] for x in self.fills if x[0] > 0]
+            price_sell = [x[1] for x in self.fills if x[0] < 0]
+            if weight_buy != [] and weight_sell != []:
+                wap_buy = round(np.average(price_buy, weights = weight_buy),2)
+                wap_sell = round(np.average(price_sell, weights = weight_sell),2)
+            elif weight_buy != []:
+                wap_buy = round(np.average(price_buy, weights = weight_buy),2)
+            elif weight_sell != []:
+                wap_sell = round(np.average(price_sell, weights = weight_sell),2)
+            if self.position >= 0:
+                position_price = wap_buy
+            else:
+                position_price = wap_sell
+            self.summary = {'Long' : (sum(buys),wap_buy), 
+                            'Short' : (sum(sells),wap_sell),
+                            'Net' : (self.position, position_price)}
+            return {'Long' : wap_buy, 'Short' : wap_sell}
+        except AttributeError:
+            return print('No positions')
 
     def ytm(self,price,pricing_date = date.today()):
         today = date.today()
@@ -103,7 +132,6 @@ class SovereignBond:
         dates_bond.insert(0, settle_date)
         cf.insert(0, -price)
         ytm = xirr(dates_bond,cf)
-
         return ytm
 
     def price(self,ytm,pricing_date = date.today(), rnd = True):
@@ -126,10 +154,8 @@ class SovereignBond:
             nflow = cf[i]/pow(1 + ytm, time_left)
             price = price + nflow
         if rnd == True:
-
             return round(price,2)
         else:
-
             return(price)
 
     def durations(self,price, pricing_date = date.today ()):
@@ -155,7 +181,6 @@ class SovereignBond:
         durations['Modified Duration'] = durations['Macaulay Duration'] / (1 + ytm/2)
         durations['$Duration'] = durations['Modified Duration'] * price
         durations['DV01'] = durations['$Duration'] / 10000
-
         return durations
     
     def convexity(self, price, pricing_date = date.today ()):
@@ -181,7 +206,15 @@ class SovereignBond:
         convexity['$Convexity'] = sum(wxt)
         convexity['Convexity'] = convexity['$Convexity'] * \
                                    pow(price, -1) * pow(2,-1)
-
         return convexity
 
-
+    def finish_trading(self):
+            with open('fills.csv', 'w') as fill:
+                for i in self.fills:
+                    fill.write(f'{self.ticker};{i[0]};{i[1]}; {i[2]} \n')
+            self.position = 0
+            try:
+                delattr(self, 'fills')
+                delattr(self, 'summary')
+            except AttributeError:
+                pass
