@@ -39,11 +39,17 @@ if __name__ == '__main__':
 
             for k in opt_names:
 
-                strike = int(k[4:7])
+                strike = list(map(str,k))
+
+                strike = [i for i in strike if i.isdigit()]
+
+                strike = ''.join(strike)
+
+                strike = int(strike)
+
+                if len(str(strike)) > 4: strike = strike/100
 
                 strikes.append(strike)
-
-            strikes = list(set(strikes))
             
             strikes.sort()   
 
@@ -53,11 +59,15 @@ if __name__ == '__main__':
 
             neighbours = strikes[index_atm - 5 : index_atm + 5]
 
-            strikes = [x for x in opt_names for y in neighbours if str(y) in x]
+            for indx, i in enumerate(neighbours):
+                if type(i) == float:
+                    neighbours[indx] = str(i).replace('.','')
+
+            tickers = [x for x in opt_names for y in neighbours if str(y) in x]
 
             monitor = pd.DataFrame()
 
-            for opt_ticker in strikes:
+            for opt_ticker in tickers:
                 try:
                     opt_data = user_pablo.get_detailed_data(opt_ticker, 't1')
                     exp_date = datetime.strptime(opt_data.get('descripcionTitulo')[-10:],
@@ -66,7 +76,10 @@ if __name__ == '__main__':
                         orient = 'index', columns = [opt_ticker]).transpose()
                     book['Vencimiento'] = exp_date
                     book['Días a Vencimiento'] = (exp_date - date.today()).days
-                    strike = int(opt_ticker[4:7])
+                    strike = list(map(str,k))
+                    strike = [i for i in strike if i.isdigit()]
+                    strike = ''.join(strike)
+                    strike = int(strike)
                     if opt_ticker[3] == 'C':
                         call_bs = opt.call_option(ggal_price, strike, 
                                           date.today(), exp_date, 
