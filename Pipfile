@@ -8,8 +8,10 @@ pandas = "*"
 requests = "*"
 scipy = "*"
 pyxirr = "*"
+black = "*"
 
 [dev-packages]
+finnhub-python = "*"
 
 [requires]
 python_version = "3.10"
