@@ -1,13 +1,11 @@
 from datetime import date
 
-class Etf():
+class CedearEtf():
     ''' Class for modeling Exchange Traded Funds
     Attributes
     ==========
     ticker: str
             etf ticker
-    price: float
-           etf price
     ratio: int
            ratio of Cedears that form one 
            stock in the original exchange
@@ -17,9 +15,8 @@ class Etf():
                     name of the original exchange
                     where the etf is listed
     '''
-    def __init__(self, ticker, price, ratio, foreign_ticker, foreign_market):
+    def __init__(self, ticker, ratio, foreign_ticker, foreign_market = 'USA'):
         self.ticker = ticker
-        self.price = price
         self.ratio = ratio
         self.foreign_ticker = foreign_ticker
         self.foreign_market = foreign_market
