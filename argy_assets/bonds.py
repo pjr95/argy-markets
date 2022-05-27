@@ -58,7 +58,7 @@ class SovereignBond:
               portfolio) 
     '''
     def __init__(self, ticker, cashflow, maturity, series, country = 'Argentina',
-                 currency = 'USD', periodicity = 'semestral', position = 0):
+                 currency = 'USD', periodicity = 'semestral'):
         self.ticker = ticker
         self.cashflow = cashflow
         self.maturity = maturity
@@ -66,57 +66,6 @@ class SovereignBond:
         self.country = country
         self.currency = currency
         self.periodicity = periodicity
-        self.position = position
-
-    def buy(self, qty = 1, buying_price = 100):
-        if qty < 0: return print('Negative quantities are sells!')
-        self.position = self.position + qty 
-        self.last_buying_price = buying_price 
-        try:
-            eval('self.fills')
-            self.fills += [(qty, buying_price, datetime.now())]
-        except AttributeError:
-            self.fills  = [(qty, buying_price, datetime.now())]
-        return print(f'Bought {self.ticker} {qty}@{buying_price} {self.currency}' )
-    
-    def sell(self, qty = -1, selling_price = 100):
-        if qty > 0: return print('Positive quantities are buys!')
-        self.position = self.position + qty 
-        self.last_selling_price = selling_price 
-        try:
-            eval('self.fills')
-            self.fills += [(qty, selling_price, datetime.now())]
-        except AttributeError:
-            self.fills  = [(qty, selling_price, datetime.now())]       
-        return print(f'Sold {self.ticker} {qty}@{selling_price} {self.currency}' )
-    
-    def wap(self):
-        try:
-            wap_buy = 0
-            wap_sell = 0
-            buys = [x[0] for x in self.fills if x[0] > 0]
-            sells = [x[0] for x in self.fills if x[0] < 0]
-            weight_buy = [x/sum(buys) for x in buys]
-            weight_sell = [x/sum(sells)for x in sells]
-            price_buy = [x[1] for x in self.fills if x[0] > 0]
-            price_sell = [x[1] for x in self.fills if x[0] < 0]
-            if weight_buy != [] and weight_sell != []:
-                wap_buy = round(np.average(price_buy, weights = weight_buy),2)
-                wap_sell = round(np.average(price_sell, weights = weight_sell),2)
-            elif weight_buy != []:
-                wap_buy = round(np.average(price_buy, weights = weight_buy),2)
-            elif weight_sell != []:
-                wap_sell = round(np.average(price_sell, weights = weight_sell),2)
-            if self.position >= 0:
-                position_price = wap_buy
-            else:
-                position_price = wap_sell
-            self.summary = {'Long' : (sum(buys),wap_buy), 
-                            'Short' : (sum(sells),wap_sell),
-                            'Net' : (self.position, position_price)}
-            return {'Long' : wap_buy, 'Short' : wap_sell}
-        except AttributeError:
-            return print('No positions')
 
     def ytm(self,price,pricing_date = date.today()):
         today = date.today()
@@ -208,13 +157,13 @@ class SovereignBond:
                                    pow(price, -1) * pow(2,-1)
         return convexity
 
-    def finish_trading(self):
-            with open('fills.csv', 'w') as fill:
-                for i in self.fills:
-                    fill.write(f'{self.ticker};{i[0]};{i[1]}; {i[2]} \n')
-            self.position = 0
-            try:
-                delattr(self, 'fills')
-                delattr(self, 'summary')
-            except AttributeError:
-                pass
+class CERBonds:
+    def __init__(self, ticker, cashflow, maturity, series, country = 'Argentina',
+                 currency = 'ARS', periodicity = 'semestral'):
+        self.ticker = ticker
+        self.cashflow = cashflow
+        self.maturity = maturity
+        self.series = series
+        self.country = country
+        self.currency = currency
+        self.periodicity = periodicity
