@@ -130,3 +130,6 @@ dmypy.json
 
 # Practice .py
 asset_classes/bonds/argy_bond2.py
+.gitsecret/keys/random_seed
+!*.secret
+iol_screeners/keyparargy_assets/bonds2.py
