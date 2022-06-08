@@ -132,4 +132,5 @@ dmypy.json
 asset_classes/bonds/argy_bond2.py
 .gitsecret/keys/random_seed
 !*.secret
-iol_screeners/keyparargy_assets/bonds2.py
+iol_screeners/keypar
+argy_assets/bonds2.py
